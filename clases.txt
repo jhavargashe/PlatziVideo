@@ -1,0 +1,11 @@
+
+
+eslint
+
+npm install eslint babel-eslint eslint-config-airbnb eslint-plugin-import eslint-plugin-react eslint-plugin-jsx-a11y
+
+sass
+
+https://github.com/sass/node-sass
+
+sudo npm install -unsafe-perm --save-dev mini-css-extract-plugin css-loader node-sass sass-loader
