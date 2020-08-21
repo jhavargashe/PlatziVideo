@@ -1,0 +1,53 @@
+.carousel{
+    width: 100%;
+    /* este sirve para hacer que halla scroll horizontal */
+    overflow: scroll;
+    padding: 30px;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.carousel__container{
+    /* Esta propiedad hace que todos los elementos se posicionen en forma secuencial, en especial nowrap hace que sean infinitos a la izquierda */
+    white-space: nowrap;
+    margin: 70px 0px 60px 0px ;
+    padding-bottom: 10px;
+}
+
+.carousel::-webkit-scrollbar {
+    width: 8px;     /* Tamaño del scroll en vertical */
+    height: 8px;    /* Tamaño del scroll en horizontal */
+}
+
+.carousel::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 4px;
+}
+
+.carousel::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.carousel::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+    cursor: pointer;
+}
+
+.carousel::-webkit-scrollbar-track {
+    margin: 0px 30px;
+}
+/* Cambiamos el fondo cuando esté en active o hover */
+.carousel::-webkit-scrollbar-track:hover,
+.carousel::-webkit-scrollbar-track:active {
+    cursor: pointer;
+}
+
+.carousel__container:hover .carousel-item{
+    opacity: 0.3;
+}
+
+.carousel__container:hover .carousel-item:hover {
+    transform: scale(1.5);
+    opacity: 1;
+}

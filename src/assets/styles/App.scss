@@ -1,5 +1,8 @@
-body {
-  margin: 0;
-  background-color: red;
-  color: white;
+@import './Vars.scss';
+@import './Media.scss';
+
+body{
+  background: linear-gradient(#21C08B, $main-color);
+  font-family: $theme-font;
+  margin: 0px;
 }

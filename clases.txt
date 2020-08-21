@@ -1,11 +1,242 @@
+**Create React App y Tipos de Componentes
+Inicialización de un proyecto en React
+Creación de nuestro sitio web usando la plantilla por defecto de create-react-app:
+
+--npx create-react-app nombre-de-tu-proyecto
+Iniciar el servidor de desarrollo:
+
+--npm start
+No olvides que puedes aprender a manejar de forma las diferentes herramientas de desarrollo en el Curso de Prework: Buenas Prácticas y Entorno de Desarrollo.
+
+**github
+
+Iniciar un repositorio en GIT:
+
+--git init
+Iniciar un proyecto de Node.js:
+
+--npm init -y
+```
+
+Instalar React:
+
+```bash
+--npm install --save react react-dom
+
+**babel
+
+Babel es una herramienta muy popular para escribir JavaScript moderno y transformarlo en código que pueda entender cualquier navegador.
+
+Instalación de Babel y otras herramientas para que funcione con React:
+
+--npm install --save-dev @babel/core @babel/preset-env @babel/preset-react babel-loader
+Configuración de Babel (.babelrc):
+
+---
+{
+  ""presets"": [
+    ""@babel/preset-env"",
+    ""@babel/preset-react""
+  ],
+}
+
+**webpack
+
+Webpack: Empaquetando nuestros módulos
+"Webpack es una herramienta que nos ayuda a compilar multiples archivos (JavaScript, HTML, CSS, imágenes) en uno solo (o a veces un poco más) que tendrá todo nuestro código listo para producción.
+
+Instalación de Webpack y algunos plugins:
+
+--npm install webpack webpack-cli html-webpack-plugin html-loader  --save-dev
+Configuración de Webpack (webpack.config.js):
+
+---
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
+      {
+        test: /\.html$/,
+        use: {
+          loader: 'html-loader',
+        },
+      },
+    ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
+      filename: './index.html',
+    }),
+  ],
+};
+
+---
+Script para ejecutar las tareas de Webpack (package.json):
+
+{
+  ""scripts"": {
+    ""build"": ""webpack --mode production""
+  },
+}
 
 
-eslint
+**Webpack Dev Server: Reporte de errores y Cambios en tiempo real
+Instalación de Webpack Dev Server:
 
-npm install eslint babel-eslint eslint-config-airbnb eslint-plugin-import eslint-plugin-react eslint-plugin-jsx-a11y
+--npm install --save-dev webpack-dev-server
+Script para ejecutar el servidor de Webpack y visualizar los cambios en tiempo real (package.json):
 
-sass
+---
+{
+  ""scripts"": {
+    ""build"": ""webpack --mode production"",
+    ""start"": ""webpack-dev-server --open --mode development""
+  },
+}
+
+
+
+**sass
 
 https://github.com/sass/node-sass
 
-sudo npm install -unsafe-perm --save-dev mini-css-extract-plugin css-loader node-sass sass-loader
+--sudo npm install -unsafe-perm --save-dev mini-css-extract-plugin css-loader node-sass sass-loader
+
+Estilos con SASS
+Los preprocesadores como Sass son herramientas que nos permiten escribir CSS con una sintaxis un poco diferente y más amigable que luego se transformará en CSS normal. Gracias a Sass podemos escribir CSS con variables, mixins, bucles, entre otras características.
+
+Instalación de Sass:
+
+--npm install --save-dev mini-css-extract-plugin css-loader node-sass sass-loader
+Configuración de Sass en Webpack (webpack.config.js):
+
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+----
+// ...
+
+module: {
+  rules: [
+    {
+      test: /\.(s*)css$/,
+      use: [
+        { loader: MiniCssExtractPlugin.loader },
+        'css-loader',
+        'sass-loader',
+      ],
+    }, 
+  ],
+},
+
+// ...
+
+plugins: [
+  new MiniCssExtractPlugin({
+    filename: 'assets/[name].css',
+  }),
+],`
+```
+
+**Eslint
+
+--npm install eslint babel-eslint eslint-config-airbnb eslint-plugin-import eslint-plugin-react eslint-plugin-jsx-a11y
+
+***Añadiendo imágenes con Webpack
+Vamos a usar File Loader para acceder a las imágenes de nuestro proyecto desde el código.
+
+Inicialmente, estos archivos estáticos se encuentran junto al código de desarrollo. Pero al momento de compilar, Webpack guardará las imágenes en una nueva carpeta junto al código para producción y actualizará nuestros componentes (o donde sea que usemos las imágenes) con los nuevos nombres y rutas de los archivos.
+
+Instalación de File Loader:
+
+--npm install --save-dev file-loader
+Configuración de File Loader en Webpack (webpack.config.js):
+
+---
+rules: [
+  {
+    test: /\.(png|gif|jpg)$/,
+    use: [
+      {
+        loader: 'file-loader',
+        options: { name: 'assets/[hash].[ext]' },
+      }
+    ],
+  },
+],
+
+---
+Uso de File Loader con React:
+
+import React from 'react';
+import nombreDeLaImagen from '../assets/static/nombre-del-archivo';
+
+const Component = () => (
+  <img src={nombreDeLaImagen} />
+);
+
+export default Component;
+
+
+
+**fake API
+
+--sudo npm install json-server -g
+```
+
+Recuerda que en Windows debes correr tu terminal de comandos en modo administrador.
+
+Ejecutar el servidor de JSON Server:
+
+```bash
+--json-server archivoParaTuAPI.json
+
+
+***PropTypes
+Los PropTypes son una propiedad de nuestros componentes que nos permiten especificar qué tipo de elementos son nuestras props: arrays, strings, números, etc.
+
+Instalación de PropTypes:
+
+---npm install --save prop-types
+Uso de PropTypes:
+
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const Component = ({ name, lastName, age, list }) => {
+  // ...
+};
+
+Component.propTypes = {
+  name: PropTypes.string,
+  lastName: PropTypes.string,
+  age: PropTypes.number,
+  list: PropTypes.array,
+};
+
+export default Component;
+Por defecto, enviar todas nuestras props es opcional, pero con los propTypes podemos especificar cuáles props son obligatorias para que nuestro componente funcione correctamente con el atributo isRequired.
+
+Component.propTypes = {
+  name: PropTypes.string.isRequired, // obligatorio
+  lastName: PropTypes.string.isRequired, // obligatorio
+  age: PropTypes.number, // opcional,
+  list: PropTypes.array, // opcional
+};
